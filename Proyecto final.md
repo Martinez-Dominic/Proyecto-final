@@ -1,39 +1,36 @@
-# Proyecto-final
-1. ¿Qué es el registro de personal?
-El registro de personal es un sistema administrativo utilizado por las empresas o instituciones para llevar un control detallado de los datos laborales de sus empleados. Es una herramienta fundamental en la gestión de recursos humanos.
+import tkinter as tk
+from tkinter import ttk
+import time
 
-2. Objetivos del registro de personal:
+def registrar_llegada():
+    nombre = entry_nombre.get()
+    turno = combo_turno.get()
 
-Mantener información actualizada del personal.
+    if not nombre or not turno:
+        label_resultado.config(text="Por favor ingresa tu nombre y selecciona un turno.", fg="red")
+        return
 
-Facilitar la toma de decisiones en áreas como contratación, promociones o despidos.
+    hora = time.strftime("%H:%M:%S")
+    mensaje = f"{nombre} ({turno}) llegó a las {hora}"
+    label_resultado.config(text=mensaje, fg="green")
 
-Cumplir con normativas laborales y fiscales.
 
-Garantizar la correcta administración de beneficios laborales.
+ventana = tk.Tk()
+ventana.title("Registro de Llegada")
+ventana.geometry("350x250")
 
-3. Información que contiene:
-Los registros pueden variar, pero generalmente incluyen:
+tk.Label(ventana, text="Nombre:").pack(pady=5)
+entry_nombre = tk.Entry(ventana)
+entry_nombre.pack()
 
-Datos personales: nombre, dirección, teléfono, estado civil.
+tk.Label(ventana, text="Turno:").pack(pady=5)
+combo_turno = ttk.Combobox(ventana, values=["Matutino", "Vespertino"])
+combo_turno.pack()
+combo_turno.set("Matutino")  
 
-Documentación legal: número de identificación, permisos de trabajo, contratos.
+tk.Button(ventana, text="Registrar Llegada", command=registrar_llegada).pack(pady=20)
 
-Historial laboral: fecha de ingreso, cargos ocupados, ascensos, evaluaciones.
+label_resultado = tk.Label(ventana, text="", font=("Arial", 12))
+label_resultado.pack()
 
-Asistencia y puntualidad: registro de entradas y salidas, ausencias, vacaciones.
-
-Seguridad social: afiliaciones, aportes, beneficios.
-
-4. Importancia del registro de personal:
-
-Ayuda a mantener el orden y la transparencia en la gestión laboral.
-
-Facilita auditorías internas o externas.
-
-Permite cumplir con obligaciones legales ante entidades gubernamentales.
-
-Mejora la comunicación y gestión entre empleados y la organización.
-
-5. Medios de registro:
-El registro de personal puede ser físico (archivos en papel) o digital (sistemas informáticos o software especializado), siendo este último el más eficiente y seguro actualmente.
+ventana.mainloop()
